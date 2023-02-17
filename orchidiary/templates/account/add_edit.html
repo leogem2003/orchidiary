@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{operation|capfirst}} {{title}}{% endblock %}
+{% block content %}
+<header>
+    <h1>{{operation|capfirst}} your {{title}}</h1>
+</header>
+{% if done is False %}
+<p>Error: impossible to save your {{title}}</p>
+{% elif done is True %}
+<p>{{title|capfirst}} saved successfully</p>
+{% endif %}
+<form method="POST" enctype='multipart/form-data'>
+    {% csrf_token %}
+    <ul>
+        {{form.as_ul}}
+    </ul>
+    <button type="submit">{{operation|capfirst}}</button>
+</form>
+
+{% endblock %}

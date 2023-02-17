@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block modal %}{% endblock %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="modal">
+    <div class="modal-wrapper">
+        {% if user.is_authenticated %}
+        <h2>{{user.username}}</h2>
+        <a href="{% url 'logout' %}" class="underline">Logout</a>
+        {% else %}
+        <h2>Login</h2>
+        <div class="login-wrapper">
+            <form method="POST">
+                {% csrf_token %}
+                <ul>
+                    {{form.as_ul}}
+                    <button type="submit">Login</button>
+                </ul>
+            </form>
+        </div>
+        <div class="signup">
+            <p>Don't have an account? <a href="{% url 'signup' %}" class="underline">Signup</a></p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Signup{% endblock %}
+{% block content %}
+<header>
+    <h1>Signup</h1>
+</header>
+<div class="flex-column-center auth-wrapper">
+    {% if form.errors %}
+    <div class="error">
+        <ul>
+            {% for field,error in form.errors.items %}
+                <li>{{error}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <form method="POST" class="border">
+        {% csrf_token %}
+        <ul>
+            <li>
+                <label for="id_username">Username</label>
+                {{form.username}}
+            </li>
+            <li>
+                <label for="id_email">Email</label>
+                {{form.email}}
+            <li>
+                <label for="id_password1">Password</label>
+                {{form.password1}}
+            </li>
+            <li>
+                <label for="id_password2">Password (again)</label>
+                {{form.password2}}
+            </li>
+        </ul>
+        <button type="submit">Signup</button>
+    </form>
+</div>
+{% endblock %}

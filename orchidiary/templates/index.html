@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<header class="header-homepage flex-column-center">
+    <div class="header-content flex-column-center">
+        <div class="header-title">
+            <h1><span class="header-site-name">Orchidiary</span>,<br>where the passion grows</h1>
+        </div>
+        <div class="header-signup">
+            <p><a href="{% url 'signup' %}" class="underline">signup</a> or <a href="#" class="login-link underline">login</a></p>
+        </div>
+    </div>
+</header>
+{% endblock %}
