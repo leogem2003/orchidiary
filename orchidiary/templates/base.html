@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orchidiary - {% block title %}{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Merriweather&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav>
+        <div class="nav-title">
+            <h1><a href="/">Orchidiary</a></h1>
+        </div>
+        <div class="nav-links flex-column-center">
+            <ul>
+                <li><a href="{% url 'orchids_sections' %}">Orchids</a></li>
+                <li><a href="{% url 'account_home' %}">Account</a></li>
+                <li><a href="">About</a></li>
+                <li><button class="account-btn">
+                    {% if user.is_authenticated %}
+                    {{user.username}}
+                    {% else %}
+                    Login
+                    {% endif %}
+                </button></li>
+            </ul>
+        </div>
+        {% block modal %}
+        <div class="modal invisible">
+            <div class="modal-wrapper">
+                <button class="modal-exit">X</button>
+                {% if user.is_authenticated %}
+                <h2>{{user.username}}</h2>
+                <a href="{% url 'logout' %}" class="underline">Logout</a>
+                {% else %}
+                <h2>Login</h2>
+                <div class="login-wrapper">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <ul>
+                            {{login_form.as_ul}}
+                            <button type="submit">Login</button>
+                        </ul>
+                    </form>
+                </div>
+                <div class="signup">
+                    <p>Don't have an account? <a href="{% url 'signup' %}" class="underline">Signup</a></p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endblock %}
+    </nav>
+    {% block content %}{% endblock %}
+</body>
+</html>
+<script src="{% static 'js/app.js' %}"></script>

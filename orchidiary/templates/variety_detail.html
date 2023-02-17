@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{variety}}{% endblock %}
+{% block content %}
+<header class="page-header">
+    <h1>{{variety.genre}} {{variety.name}}</h1>
+</header>
+<article>
+    <div class="flex-space-between">
+        <div class="detail-right">
+            <div class="detail-photo-wrapper">
+            {% if variety.image %}
+                <img src="{{variety.image.url}}">
+            {% else %}
+                <img src="{% static 'img/not_found.png' %}">
+            {% endif %}
+            </div>
+        </div>
+        <div class="detail-left">
+            <div class="detail-link-wrapper">
+                <ul class="actions">
+                    <li><img src="{% static 'img/edit.svg' %}"><a href="{% url 'edit_variety' pk=variety.pk %}">Edit</a></li>
+                    <li><img src="{% static 'img/delete.svg' %}"><a href="{% url 'delete_variety' pk=variety.pk %}">Delete</a></li>
+                </ul>
+            </div>
+            <ul class="info">
+                <li>Description:<br> <span class="info-data">{{variety.description}}</span></li>
+                <li>Winter temperatures: <span class="info-data">{{variety.winter_range}}</span></li>
+                <li>Summer temperatures: <span class="info-data">{{variety.summer_range}}</span></li>
+                <li>Light: <span class="info-data">{{variety.light}}</span></li>
+                <li>Humidity: <span class="info-data">{{variety.humidity}}%</span></li>
+                <li>Blooming: <span class="info-data">{{variety.bloom}}</span></li>
+                <li>Ground: <span class="info-data">{{variety.ground}}</span></li>
+            </ul>
+            <ul class="page-links">
+                <li><a href="{% url 'variety_list' page=1 num=10%}" class="underline">Varieties list</a></li>
+                <li><a href="{% url 'variety_list_f_genre' page=1 num=10 genre=variety.genre %}" class="underline">All {{variety.genre}} varieties</a></li>
+                <li><a href="{% url 'orchids_list_f_variety' page=1 num=10 variety=variety.pk %}" class="underline">My {{variety}} orchids</a></li>
+            </ul>
+        </div>
+    </div>
+</article>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{orchid}}{% endblock %}
+{% block content %}
+<header class="page-header">
+    <h1>{{orchid}}</h1>
+</header>
+<article>
+    <div class="flex-space-between">
+        <div class="detail-right">
+            <div class="detail-photo-wrapper">
+            {% if orchid.image %}
+                <img src="{{orchid.image.url}}">
+            {% else %}
+                <img src="{% static 'img/not_found.png' %}">
+            {% endif %}
+            </div>
+        </div>
+        <div class="detail-left">
+            <div class="detail-link-wrapper">
+                <ul class="actions">
+                    <li><img src="{% static 'img/edit.svg' %}"><a href="{% url 'edit_instance' pk=orchid.pk%}">Edit</a></li>
+                    <li><img src="{% static 'img/delete.svg' %}"><a href="{% url 'edit_instance' pk=orchid.pk%}">Delete</a></li>
+                </ul>
+            </div>
+            <ul class="info">
+                <li>Pot size: <span class="info-data">{{orchid.pot_size}}</span></li>
+                <li>Pot type: <span class="info-data">{{orchid.pot_type}}</span></li>
+                <li>Medium: <span class="info-data">{{orchid.medium}}</span></li>
+            </ul>
+            <ul class="page-links">
+                <li><a href="{% url 'orchids_list' page=1 num=10 %}" class="underline">Orchids list</a></li>
+                <li><a href="{% url 'orchids_list_f_variety' page=1 num=10 variety=orchid.variety.pk %}" class="underline">My {{orchid.variety}} orchids</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</article>
+{% endblock %}
